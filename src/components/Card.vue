@@ -1,5 +1,6 @@
 <template>
   <div class="card">
+    <img :src="`http://image.tmdb.org/t/p/w342/${details.poster_path}`" :alt="details.title||details.name">
     <h3>Title: {{details.title||details.name}}</h3>
     <h4>Original title: {{details.original_title||details.original_name}}</h4>
     <div>Language: <lang-flag :iso="details.original_language" :squared="false" /></div>
