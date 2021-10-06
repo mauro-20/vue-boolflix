@@ -1,9 +1,9 @@
 <template>
-  <section class="movies">
-    <h2>Movies</h2>
+  <section class="series">
+    <h2>Series</h2>
     <ol>
-      <li v-for="movie in searchedMovies" :key="movie.id">
-        <Card :details="movie"/>
+      <li v-for="serie in searchedSeries" :key="serie.id">
+        <Card :details="serie"/>
       </li>
     </ol>
   </section>
@@ -14,22 +14,22 @@ import axios from "axios";
 import Card from "./Card.vue";
 
 export default {
-  name: "Movies",
+  name: "Series",
   components: {
     Card,
   },
   props: {
-    movie: String,
+    serie: String,
   },
   data() {
     return {
-      searchedMovies: []
+      searchedSeries: []
     }
   },
   watch: {
-    movie(query) {
+    serie(query) {
       axios
-        .get("https://api.themoviedb.org/3/search/movie", {
+        .get("https://api.themoviedb.org/3/search/tv", {
           params: {
             api_key: "6a09bb800f1f7f3929eb20394348e914",
             language: "it-IT",
@@ -37,7 +37,7 @@ export default {
           },
         })
         .then((response) => {
-          this.searchedMovies = response.data.results
+          this.searchedSeries = response.data.results
         });
     },
   },

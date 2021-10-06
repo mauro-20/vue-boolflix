@@ -1,29 +1,31 @@
 <template>
   <div id="app">
-    <Search-Bar @search="movieToSearch"/>
-    <Movies :movie="movie"/>
+    <Search-Bar @search="queryToSearch"/>
+    <Movies :movie="query"/>
+    <Series :serie="query"/>
   </div>
 </template>
 
 <script>
 import SearchBar from './components/SearchBar.vue'
 import Movies from './components/Movies.vue'
+import Series from './components/Series.vue'
 
 export default {
   name: 'App',
   components: {
     SearchBar,
-    Movies
+    Movies,
+    Series
   },
   data() {
     return {
-      movie: ""
+      query: ""
     }
   },
   methods: {
-    movieToSearch(movie) {
-      console.log(movie)
-      this.movie = movie
+    queryToSearch(query) {
+      this.query = query
     }
   }
 }
