@@ -25,7 +25,6 @@ export default {
       searchedMovies: []
     }
   },
-
   watch: {
     movie(value) {
       axios
