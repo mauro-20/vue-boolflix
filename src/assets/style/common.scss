@@ -1,0 +1,48 @@
+// font google
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,200,300,400&display=swap');
+//variables
+@import './variables.scss';
+// reset
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body{
+  font-family: 'Lato', sans-serif;
+  background-color: $bgMain;
+}
+
+.container{
+  margin-left: 6.25rem;
+}
+
+.btn{
+  height: 1.875rem;
+  margin-left: 1rem;
+  border-radius: .1875rem;
+  border: none;
+  padding: .3125rem .625rem;
+  font-size: 1.10rem;
+  background-color: $logoColor;
+  color: $textLight;
+  cursor: pointer;
+}
+.input-text{
+  height: 1.875rem;
+  border-radius: .1875rem;
+  border: none;
+  padding: .3125rem;
+  outline: none;
+  font-size: 1.10rem;
+}
+ul{
+  list-style: none;
+}
+
+// main section
+.main-section-container{
+  display: flex;
+  overflow-x: auto;
+}

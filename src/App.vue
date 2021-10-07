@@ -1,20 +1,24 @@
 <template>
   <div id="app">
-    <Search-Bar @search="queryToSearch"/>
-    <Movies :movie="query"/>
-    <Series :serie="query"/>
+    <Header @search="queryToSearch"/>
+    <main>
+      <div class="container">
+        <Movies :movie="query"/>
+        <Series :serie="query"/>
+      </div>
+    </main>
   </div>
 </template>
 
 <script>
-import SearchBar from './components/SearchBar.vue'
+import Header from './components/Header.vue'
 import Movies from './components/Movies.vue'
 import Series from './components/Series.vue'
 
 export default {
   name: 'App',
   components: {
-    SearchBar,
+    Header,
     Movies,
     Series
   },
@@ -33,5 +37,8 @@ export default {
 
 <style lang="scss">
 @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css");
+@import './assets/style/common';
+
+  
 
 </style>
