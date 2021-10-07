@@ -1,10 +1,8 @@
 <template>
   <header>
-    <div class="logo">
-      Boolflix
-    </div>
+    <div class="logo">BOOLFLIX</div>
     <form>
-      <input type="text" name="search" id="search" class="input-text" v-model="searchInput">
+      <input type="text" name="search" id="search" class="input-text" placeholder="Begin your search" v-model="searchInput">
       <button type="submit" class="btn" @click.prevent="$emit('search', searchInput)">Search</button>
     </form>
   </header>

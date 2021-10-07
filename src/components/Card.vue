@@ -62,7 +62,7 @@ export default {
     position: relative;
     width: 21.5625rem;
     height: 32.0625rem;
-    margin: .625rem;
+    margin-right: .625rem;
     
     img{
       width: 100%;

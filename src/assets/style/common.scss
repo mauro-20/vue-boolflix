@@ -29,6 +29,16 @@ body{
   color: $textLight;
   cursor: pointer;
 }
+.btn-scroll{
+  padding: 1.875rem;
+  border: none;
+  border-radius: .3125rem;
+  font-size: 3.125rem;
+  background-color: $darkGray;
+  color: $lightGray;
+  opacity: 0.8;
+  cursor: pointer;
+}
 .input-text{
   height: 1.875rem;
   border-radius: .1875rem;
@@ -39,10 +49,4 @@ body{
 }
 ul{
   list-style: none;
-}
-
-// main section
-.main-section-container{
-  display: flex;
-  overflow-x: auto;
 }

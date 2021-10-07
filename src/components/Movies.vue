@@ -1,11 +1,15 @@
 <template>
-  <section v-if="movie" class="movies">
-    <h2>Movies</h2>
-    <ul class="main-section-container">
-      <li v-for="movie in searchedMovies" :key="movie.id">
-        <Card :details="movie"/>
-      </li>
-    </ul>
+  <section v-if="searchedMovies" class="movies">
+    <h2>MOVIES</h2>
+    <div class="main-section-container" >
+      <button class="btn-scroll left" @click="prev"><i class="fas fa-angle-left"></i></button>
+      <div class="scroll-container" ref="scrollContainer">
+        <div v-for="movie in searchedMovies" :key="movie.id">
+          <Card :details="movie"/>
+        </div>
+      </div>
+      <button class="btn-scroll right" @click="next"><i class="fas fa-angle-right"></i></button>
+    </div>
   </section>
 </template>
 
@@ -23,7 +27,15 @@ export default {
   },
   data() {
     return {
-      searchedMovies: []
+      searchedMovies: null
+    }
+  },
+  methods: {
+    next: function() {
+      this.$refs.scrollContainer.scrollLeft += 500
+    },
+    prev: function() {
+      this.$refs.scrollContainer.scrollLeft -= 500
     }
   },
   watch: {
@@ -44,8 +56,33 @@ export default {
 };
 </script>
 
-<style lang>
-
+<style lang="scss" scoped>
+  @import '../assets/style/mainSections';
   
+  .movies{
+    margin-bottom: 1.875rem;
+  }
+
+  .main-section-container{
+    position: relative;
+
+    .btn-scroll{
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 1;
+      
+      &.left{
+        left: .625rem;
+      }
+      &.right{
+        left: 93%;
+      }
+    }
+  }
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
 
 </style>
