@@ -36,9 +36,22 @@ export default {
 </script>
 
 <style lang="scss">
-@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css");
-@import './assets/style/common';
+  @import '~@fortawesome/fontawesome-free/css/all.css';
+  @import './assets/style/common';
 
-  
+  /* scrollbar */
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background-color: rgba(50, 50, 50, 0.5);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #6d6d6d; 
+    border-radius: 5px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #c1c1c1c1; 
+  }  
 
 </style>
