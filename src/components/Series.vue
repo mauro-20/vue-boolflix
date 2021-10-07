@@ -1,11 +1,11 @@
 <template>
-  <section class="series">
+  <section v-if="serie" class="series">
     <h2>Series</h2>
-    <ol>
+    <ul class="main-section-container">
       <li v-for="serie in searchedSeries" :key="serie.id">
         <Card :details="serie"/>
       </li>
-    </ol>
+    </ul>
   </section>
 </template>
 

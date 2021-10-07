@@ -1,11 +1,11 @@
 <template>
-  <section class="movies">
+  <section v-if="movie" class="movies">
     <h2>Movies</h2>
-    <ol>
+    <ul class="main-section-container">
       <li v-for="movie in searchedMovies" :key="movie.id">
         <Card :details="movie"/>
       </li>
-    </ol>
+    </ul>
   </section>
 </template>
 
@@ -44,5 +44,8 @@ export default {
 };
 </script>
 
-<style>
+<style lang>
+
+  
+
 </style>
