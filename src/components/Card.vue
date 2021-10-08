@@ -5,25 +5,29 @@
       :alt="details.title||details.name">
     <div class="details">
       <h3>
-        <i class="thin">Title: </i>
+        <i>Title: </i>
         {{details.title||details.name}}
         </h3>
       <h4>
-        <i class="thin">Original Title: </i>
+        <i>Original Title: </i>
         {{details.original_title||details.original_name}}
         </h4>
       <div v-if="details.overview" class="overview">
-        <i class="thin">Overview: </i>
+        <i>Overview: </i>
         {{details.overview}}
-        </div>
+      </div>
+      <div v-if="cast" class="cast">
+        <i>Cast: </i>
+        <span v-for="(actor, index) in cast" :key="`${actor}${index}`" class="actor">{{actor.name}}</span>
+      </div>
       <div>
-        <i class="thin">Language: </i>
+        <i>Language: </i>
         <lang-flag v-if="flags.includes(details.original_language)" :iso="details.original_language" :squared="false" />
         <i v-else class="fas fa-globe-americas"></i>
       </div>
       <div>
-        <i v-for="n in fullStars" :key="n" class="fas fa-star"></i>
-        <i v-for="n in emptyStars" :key="n" class="far fa-star"></i>
+        <i v-for="n in fullStars" :key="`c${n}`" class="fas fa-star"></i>
+        <i v-for="n in emptyStars" :key="`k${n}`" class="far fa-star"></i>
       </div>
     </div>
     
@@ -31,6 +35,7 @@
 </template>
 
 <script>
+import axios from "axios";
 import LangFlag from 'vue-lang-code-flags';
 
 export default {
@@ -39,18 +44,31 @@ export default {
     LangFlag
   },
   props: {
-    details: Object
+    details: Object,
+    isMovie: Boolean,
+    isSerie: Boolean
   },
   data() {
     return {
       fullStars: null,
       emptyStars: null,
-      flags: ['am', 'ar', 'az', 'bn', 'be', 'ca', 'cs', 'de', 'en', 'es', 'et', 'fa', 'fr', 'bg', 'ha', 'hi', 'hu', 'hy', 'it', 'ja', 'jv', 'km', 'ko', 'lv', 'mr', 'ms', 'pl', 'pt', 'ro', 'ru', 'sw', 'ta', 'te', 'th', 'tr', 'uk', 'uz', 'vi', 'zh']
+      flags: ['am', 'ar', 'az', 'bn', 'be', 'ca', 'cs', 'de', 'en', 'es', 'et', 'fa', 'fr', 'bg', 'ha', 'hi', 'hu', 'hy', 'it', 'ja', 'jv', 'km', 'ko', 'lv', 'mr', 'ms', 'pl', 'pt', 'ro', 'ru', 'sw', 'ta', 'te', 'th', 'tr', 'uk', 'uz', 'vi', 'zh'],
+      cast: null
     }
   },
   created(){
     this.fullStars = Math.ceil(this.details.vote_average / 2)
     this.emptyStars = 5 - this.fullStars
+    axios
+      .get(`https://api.themoviedb.org/3/${this.isMovie ? 'movie' : 'tv'}/${this.details.id}/credits`, {
+        params: {
+          api_key: "6a09bb800f1f7f3929eb20394348e914",
+          language: "it-IT"
+        },
+      })
+      .then((response) => {
+        this.cast= response.data.cast.filter((el, i) => i < 5);
+      });
   }
 }
 </script>
@@ -88,12 +106,15 @@ export default {
       *{
         margin-bottom: .625rem;
       }
-      .thin{
-        font-weight: 200;
-      }
       .overview{
-        max-height: 31ch;
+        max-height: 27ch;
         overflow-y: auto;
+      }
+      .actor:not(:last-child):after{
+        content: ", ";
+      }
+      .actor:last-child:after{
+        content: ".";
       }
       .fa-star{
         color: $starColor;

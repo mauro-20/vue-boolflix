@@ -7,7 +7,7 @@
       </button>
       <div class="scroll-container" ref="scrollContainer">
         <div v-for="movie in searchedMovies" :key="movie.id">
-          <Card :details="movie" />
+          <Card :details="movie" :isMovie="isMovie" :isSerie="isSerie"/>
         </div>
       </div>
       <button class="btn-scroll right" @click="next">
@@ -38,6 +38,8 @@ export default {
       searchedMovies: null,
       api_key: "6a09bb800f1f7f3929eb20394348e914",
       language: "it-IT",
+      isMovie: null,
+      isSerie: null
     };
   },
   methods: {
@@ -98,6 +100,7 @@ export default {
         .then((response) => {
           this.searchedMovies = response.data.results;
         });
+      this.isMovie = true
     }
     if (this.trendSeries) {
       axios
@@ -110,6 +113,7 @@ export default {
         .then((response) => {
           this.searchedMovies = response.data.results;
         });
+      this.isSerie = true
     }
   },
 };
