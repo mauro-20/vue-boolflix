@@ -5,6 +5,9 @@
       <div class="container">
         <Collection :title="'MOVIES'" :movie="query"/>
         <Collection :title="'SERIES'" :serie="query"/>
+        <Collection :title="'TRENDING MOVIES'" :trendMovies="trendingMovies"/>
+        <Collection :title="'TRENDING SERIES'" :trendSeries="trendingSeries"/>
+        
       </div>
     </main>
   </div>
@@ -22,13 +25,19 @@ export default {
   },
   data() {
     return {
-      query: ""
+      query: "",
+      trendingMovies: false,
+      trendingSeries: false
     }
   },
   methods: {
     queryToSearch(query) {
       this.query = query
     }
+  },
+  created() {
+    this.trendingMovies = true;
+    this.trendingSeries = true;
   }
 }
 </script>
