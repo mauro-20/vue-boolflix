@@ -72,13 +72,17 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  @import '../assets/style/mainSections';
-  
+
+  h2{
+    margin: 1.25rem 0;
+  }
   .movies{
     margin-bottom: 1.875rem;
   }
 
   .main-section-container{
+    display: flex;
+    overflow-x: auto;
     position: relative;
 
     .btn-scroll{
@@ -93,6 +97,10 @@ export default {
       &.right{
         left: 93%;
       }
+    }
+    .scroll-container{
+      display: flex;
+      overflow-x: auto;
     }
   }
 
