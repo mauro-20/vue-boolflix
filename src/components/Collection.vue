@@ -1,6 +1,6 @@
 <template>
   <section v-if="searchedMovies" class="movies">
-    <h2>MOVIES</h2>
+    <h2>{{title}}</h2>
     <div class="main-section-container" >
       <button class="btn-scroll left" @click="prev"><i class="fas fa-angle-left"></i></button>
       <div class="scroll-container" ref="scrollContainer">
@@ -18,12 +18,14 @@ import axios from "axios";
 import Card from "./Card.vue";
 
 export default {
-  name: "Movies",
+  name: "Collection",
   components: {
     Card,
   },
   props: {
+    title: String,
     movie: String,
+    serie: String
   },
   data() {
     return {
@@ -50,6 +52,19 @@ export default {
         })
         .then((response) => {
           this.searchedMovies = response.data.results
+        });
+    },
+    serie(query) {
+      axios
+        .get("https://api.themoviedb.org/3/search/tv", {
+          params: {
+            api_key: "6a09bb800f1f7f3929eb20394348e914",
+            language: "it-IT",
+            query: query,
+          },
+        })
+        .then((response) => {
+            this.searchedMovies = response.data.results
         });
     },
   },
