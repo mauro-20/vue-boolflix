@@ -18,12 +18,16 @@
       </div>
       <div v-if="cast" class="cast">
         <i>Cast: </i>
-        <span v-for="(actor, index) in cast" :key="`${actor}${index}`" class="actor">{{actor.name}}</span>
+        <span v-for="(actor, index) in cast" :key="`${actor}${index}`" class="comma">{{actor.name}}</span>
       </div>
       <div>
         <i>Language: </i>
         <lang-flag v-if="flags.includes(details.original_language)" :iso="details.original_language" :squared="false" />
-        <i v-else class="fas fa-globe-americas"></i>
+        <i v-else class="fas fa-globe"></i>
+      </div>
+      <div>
+        <i>Genres: </i>
+        <span v-for="(genre, index) in genres" :key="`${genre}${index}`" class="comma">{{genre.name}}</span>
       </div>
       <div>
         <i v-for="n in fullStars" :key="`c${n}`" class="fas fa-star"></i>
@@ -46,14 +50,16 @@ export default {
   props: {
     details: Object,
     isMovie: Boolean,
-    isSerie: Boolean
+    isSerie: Boolean,
+    genresList: Array
   },
   data() {
     return {
       fullStars: null,
       emptyStars: null,
       flags: ['am', 'ar', 'az', 'bn', 'be', 'ca', 'cs', 'de', 'en', 'es', 'et', 'fa', 'fr', 'bg', 'ha', 'hi', 'hu', 'hy', 'it', 'ja', 'jv', 'km', 'ko', 'lv', 'mr', 'ms', 'pl', 'pt', 'ro', 'ru', 'sw', 'ta', 'te', 'th', 'tr', 'uk', 'uz', 'vi', 'zh'],
-      cast: null
+      cast: null,
+      genres: []
     }
   },
   created(){
@@ -69,6 +75,11 @@ export default {
       .then((response) => {
         this.cast= response.data.cast.filter((el, i) => i < 5);
       });
+    this.genresList.forEach((el) => {
+      if (this.details.genre_ids.includes(el.id)) {
+        this.genres.push(el)
+      }
+    })
   }
 }
 </script>
@@ -107,13 +118,13 @@ export default {
         margin-bottom: .625rem;
       }
       .overview{
-        max-height: 27ch;
+        max-height: 21ch;
         overflow-y: auto;
       }
-      .actor:not(:last-child):after{
+      .comma:not(:last-child):after{
         content: ", ";
       }
-      .actor:last-child:after{
+      .comma:last-child:after{
         content: ".";
       }
       .fa-star{

@@ -7,7 +7,7 @@
       </button>
       <div class="scroll-container" ref="scrollContainer">
         <div v-for="movie in searchedMovies" :key="movie.id">
-          <Card :details="movie" :isMovie="isMovie" :isSerie="isSerie"/>
+          <Card :details="movie" :isMovie="isMovie" :isSerie="isSerie" :genresList="genres" />
         </div>
       </div>
       <button class="btn-scroll right" @click="next">
@@ -32,6 +32,7 @@ export default {
     serie: String,
     trendSeries: Boolean,
     trendMovies: Boolean,
+    genres: Array
   },
   data() {
     return {
@@ -43,6 +44,7 @@ export default {
     };
   },
   methods: {
+    // scroll button next
     next: function () {
       let scroll = this.$refs.scrollContainer.scrollLeft + 1000;
       this.$refs.scrollContainer.scroll({
@@ -51,6 +53,7 @@ export default {
         behavior: "smooth",
       });
     },
+    // scroll button prev
     prev: function () {
       let scroll = this.$refs.scrollContainer.scrollLeft - 1000;
       this.$refs.scrollContainer.scroll({
@@ -61,6 +64,7 @@ export default {
     },
   },
   watch: {
+    // call api searched movies
     movie(query) {
       axios
         .get("https://api.themoviedb.org/3/search/movie", {
@@ -74,6 +78,7 @@ export default {
           this.searchedMovies = response.data.results;
         });
     },
+    // call api searched series
     serie(query) {
       axios
         .get("https://api.themoviedb.org/3/search/tv", {
@@ -89,31 +94,33 @@ export default {
     },
   },
   created() {
+    // call api trend movies
     if (this.trendMovies) {
       axios
         .get("https://api.themoviedb.org/3/trending/movie/week", {
           params: {
             api_key: this.api_key,
-            language: this.language
+            language: this.language,
           },
         })
         .then((response) => {
           this.searchedMovies = response.data.results;
         });
-      this.isMovie = true
+      this.isMovie = true;
     }
+    // call api trend series
     if (this.trendSeries) {
       axios
         .get("https://api.themoviedb.org/3/trending/tv/week", {
           params: {
             api_key: this.api_key,
-            language: this.language
+            language: this.language,
           },
         })
         .then((response) => {
           this.searchedMovies = response.data.results;
         });
-      this.isSerie = true
+      this.isSerie = true;
     }
   },
 };
