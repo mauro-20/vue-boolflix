@@ -3,10 +3,10 @@
     <Header @search="queryToSearch"/>
     <main>
       <div class="container">
-        <Collection :title="'MOVIES'" :movie="query"/>
-        <Collection :title="'SERIES'" :serie="query"/>
-        <Collection :title="'TRENDING MOVIES'" :trendMovies="trendingMovies"/>
-        <Collection :title="'TRENDING SERIES'" :trendSeries="trendingSeries"/>
+        <Collection :title="'MOVIES'" :movie="query" :genres="genreList"/>
+        <Collection :title="'SERIES'" :serie="query" :genres="genreList"/>
+        <Collection :title="'TRENDING MOVIES'" :trendMovies="trendingMovies" :genres="genreList"/>
+        <Collection :title="'TRENDING SERIES'" :trendSeries="trendingSeries" :genres="genreList"/>
         
       </div>
     </main>
@@ -14,6 +14,7 @@
 </template>
 
 <script>
+import axios from "axios";
 import Header from './components/Header.vue'
 import Collection from './components/Collection.vue'
 
@@ -27,7 +28,8 @@ export default {
     return {
       query: "",
       trendingMovies: false,
-      trendingSeries: false
+      trendingSeries: false,
+      genreList: null
     }
   },
   methods: {
@@ -38,6 +40,17 @@ export default {
   created() {
     this.trendingMovies = true;
     this.trendingSeries = true;
+    // call api genres list
+    axios
+      .get("https://api.themoviedb.org/3/genre/movie/list", {
+        params: {
+          api_key: "6a09bb800f1f7f3929eb20394348e914",
+          language: "it-IT"
+        },
+      })
+      .then((response) => {
+        this.genreList = response.data.genres;
+      }); 
   }
 }
 </script>
